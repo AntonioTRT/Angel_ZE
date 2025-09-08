@@ -1,58 +1,65 @@
-import tkinter as tk  # Importamos la biblioteca gráfica nativa de Python
+import tkinter as tk  # Biblioteca gráfica nativa de Python
 
 def mostrar_interfaz():
-    # Creamos la ventana principal
+    # Crear ventana principal
     ventana = tk.Tk()
-    ventana.title("Aprendiendo con Python")  # Título de la ventana
-    ventana.geometry("500x400")  # Tamaño de la ventana en píxeles
+    ventana.title("Aprendiendo con Python")
+    ventana.geometry("500x400")
 
-    # Creamos una etiqueta de texto para mostrar un mensaje inicial
+    # Etiqueta principal
     etiqueta = tk.Label(
         ventana,
-        text="¡Hola, angel! ¿Cuál es tu animal favorito?",
+        text="¡Hola, sobrino! ¿Cuál es tu animal favorito?",
         font=("Arial", 14)
     )
-    etiqueta.pack(pady=10)  # Mostramos la etiqueta con espacio vertical
+    etiqueta.pack(pady=10)
 
-    # Creamos una variable para guardar la opción seleccionada
+    # Variable para guardar la opción seleccionada
     opcion_seleccionada = tk.StringVar(value="Ninguno")
 
-    # Lista de opciones que el usuario puede elegir
-    opciones = ["uno", "dos", "tres", "cinco"]
+    # Lista de opciones disponibles
+    opciones = ["Perro", "Gato", "Elefante", "Delfín"]
 
-    # Creamos un botón de opción (Radiobutton) para cada animal
+    # Crear botones de opción (Radiobutton) para cada animal
+    botones_opcion = []
     for animal in opciones:
         rb = tk.Radiobutton(
             ventana,
-            text=animal,  # Texto que se muestra
-            variable=opcion_seleccionada,  # Variable compartida
-            value=animal  # Valor que se asigna si se selecciona
+            text=animal,
+            variable=opcion_seleccionada,
+            value=animal
         )
-        rb.pack(anchor="w", padx=20)  # Alineamos a la izquierda con margen
+        rb.pack(anchor="w", padx=20)
+        botones_opcion.append(rb)  # Guardamos referencia por si la necesitamos
 
-    # Función que actualiza el texto de la etiqueta según la opción elegida
+    # Función para mostrar la opción elegida
     def mostrar_opcion():
         etiqueta.config(text=f"¡Elegiste: {opcion_seleccionada.get()}!")
 
-    # Botón para confirmar la elección del animal
+    # Botón para confirmar la elección
     boton_confirmar = tk.Button(
         ventana,
         text="Confirmar elección",
-        command=mostrar_opcion  # Llama a la función cuando se hace clic
+        command=mostrar_opcion
     )
     boton_confirmar.pack(pady=10)
 
-    # Botón adicional para saludar de nuevo
+    # Función para saludar y reiniciar la selección
+    def saludar_y_reiniciar():
+        etiqueta.config(text="¡Hola otra vez!")
+        opcion_seleccionada.set("Ninguno")  # Reinicia la selección
+
+    # Botón para saludar y reiniciar
     boton_extra = tk.Button(
         ventana,
         text="Haz clic para saludar",
-        command=lambda: etiqueta.config(text="¡Hola otra vez!")
+        command=saludar_y_reiniciar
     )
     boton_extra.pack(pady=10)
 
-    # Iniciamos el bucle principal de la interfaz gráfica
+    # Iniciar el bucle principal de la interfaz
     ventana.mainloop()
 
-# Si ejecutamos este archivo directamente, mostramos la interfaz
+# Ejecutar la interfaz si se corre directamente este archivo
 if __name__ == "__main__":
     mostrar_interfaz()

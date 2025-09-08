@@ -1,0 +1,70 @@
+import socket
+import speedtest
+import platform
+import subprocess
+
+# Obtener la dirección IP local
+def obtener_ip_local():
+    hostname = socket.gethostname()
+    ip_local = socket.gethostbyname(hostname)
+    return ip_local
+
+# Obtener la dirección IP pública
+def obtener_ip_publica():
+    try:
+        import requests
+        ip = requests.get("https://api.ipify.org").text
+        return ip
+    except Exception as e:
+        return f"Error al obtener IP pública: {e}"
+
+# Medir velocidad de internet (descarga, subida y ping)
+def medir_velocidad():
+    try:
+        st = speedtest.Speedtest()
+        st.get_best_server()
+        download = round(st.download() / 1_000_000, 2)  # Mbps
+        upload = round(st.upload() / 1_000_000, 2)      # Mbps
+        ping = round(st.results.ping, 2)                # ms
+        return {
+            "descarga_mbps": download,
+            "subida_mbps": upload,
+            "ping_ms": ping
+        }
+    except Exception as e:
+        return f"Error al medir velocidad: {e}"
+
+# Obtener información de red (SSID, señal, etc.) — solo Windows
+def obtener_info_wifi():
+    if platform.system() != "Windows":
+        return "Esta función solo está disponible en Windows."
+
+    try:
+        resultado = subprocess.check_output("netsh wlan show interfaces", shell=True, encoding="utf-8")
+        info = {}
+        for linea in resultado.splitlines():
+            if "SSID" in linea and "BSSID" not in linea:
+                info["SSID"] = linea.split(":")[1].strip()
+            elif "Signal" in linea:
+                info["Señal"] = linea.split(":")[1].strip()
+            elif "Radio type" in linea:
+                info["Tipo de radio"] = linea.split(":")[1].strip()
+            elif "State" in linea:
+                info["Estado"] = linea.split(":")[1].strip()
+        return info
+    except Exception as e:
+        return f"Error al obtener datos Wi-Fi: {e}"
+
+# Mostrar todos los datos juntos
+def resumen_red():
+    return {
+        "IP local": obtener_ip_local(),
+        "IP pública": obtener_ip_publica(),
+        "Velocidad": medir_velocidad(),
+        "Wi-Fi": obtener_info_wifi()
+    }
+
+# Ejecutar como script independiente
+if __name__ == "__main__":
+    import pprint
+    pprint.pprint(resumen_red())
