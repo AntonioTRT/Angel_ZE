@@ -1,3 +1,4 @@
+import time
 # Este módulo contiene funciones simples para practicar programación en Python.
 
 # Función que imprime un saludo en pantalla.
@@ -8,6 +9,7 @@ def saludar():
 def contar_hasta_diez():
     print("Contando del 1 al 10:")
     for i in range(1, 11):
+        time.sleep(1)
         print(i)
 
 # Función que recibe un número y verifica si es igual a 10.

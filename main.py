@@ -9,7 +9,7 @@ def main():
         # utils.angel.saludar()
 
         # Llama a la función que cuenta del 1 al 10
-        # utils.angel.contar_hasta_diez()
+        utils.angel.contar_hasta_diez()
 
         # Llama a la función que verifica si un número es igual a 10
         # Puedes cambiar el número para probar diferentes casos
