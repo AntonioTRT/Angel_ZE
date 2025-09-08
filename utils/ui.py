@@ -3,13 +3,13 @@ import tkinter as tk  # Biblioteca gráfica nativa de Python
 def mostrar_interfaz():
     # Crear ventana principal
     ventana = tk.Tk()
-    ventana.title("Aprendiendo con Python")
+    ventana.title("programa de angel")
     ventana.geometry("500x400")
 
     # Etiqueta principal
     etiqueta = tk.Label(
         ventana,
-        text="¡Hola, sobrino! ¿Cuál es tu animal favorito?",
+        text="¡Hola, sobrino! ¿selecciona?",
         font=("Arial", 14)
     )
     etiqueta.pack(pady=10)
@@ -18,7 +18,7 @@ def mostrar_interfaz():
     opcion_seleccionada = tk.StringVar(value="Ninguno")
 
     # Lista de opciones disponibles
-    opciones = ["Perro", "Gato", "Elefante", "Delfín"]
+    opciones = ["uno", "dos", "tres", "cinco"]
 
     # Crear botones de opción (Radiobutton) para cada animal
     botones_opcion = []
@@ -52,7 +52,7 @@ def mostrar_interfaz():
     # Botón para saludar y reiniciar
     boton_extra = tk.Button(
         ventana,
-        text="Haz clic para saludar",
+        text="reiniciar",
         command=saludar_y_reiniciar
     )
     boton_extra.pack(pady=10)
